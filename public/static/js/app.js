@@ -203,7 +203,7 @@ window.require.define({"views/templates/index": function(exports, require, modul
     var foundHelper, self=this;
 
 
-    return "<div id=\"index-view\">\n    <span>This is a test</span>\n</div>\n";});
+    return "<div id=\"signup\">\n    <div>\n        <h1>PakLite</h1>\n        <div id=\"pitch\">\n            <p>Prepare for ease of travel</p>\n            <p>With none of the hassle</p>\n        </div>\n        <div id=\"submission\">\n            <label for=\"email-form\">Sign up for the latest PakLite news!</label>\n            <input id=\"email-form\" placeholder=\"me@email.com\" />\n        </div>\n    </div>\n</div>\n";});
 }});
 
 window.require.define({"views/view": function(exports, require, module) {

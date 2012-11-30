@@ -10751,6 +10751,48 @@ a.thumbnail:hover {
 .invisible {
   visibility: hidden;
 }
+html {
+  background: url("/static/images/airplane-blue-sky.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#signup {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+}
+#signup > div {
+  width: 400px;
+  height: 300px;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.7);
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  padding-top: 30px;
+}
+#signup > div h1 {
+  font-family: merienda-one, serif;
+  font-size: 60px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 20px;
+  opacity: 1;
+}
+#signup > div p {
+  font-family: playball, serif;
+  font-size: 30px;
+  font-weight: normal;
+  padding-top: 30px;
+}
+#signup > div #submission {
+  margin-top: 50px;
+}
+#signup > div #submission label {
+  color: #fff;
+}
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
    ========================================================================== */
