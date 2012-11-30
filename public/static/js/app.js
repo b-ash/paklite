@@ -145,6 +145,12 @@ window.require.define({"lib/router": function(exports, require, module) {
   
 }});
 
+window.require.define({"lib/utils": function(exports, require, module) {
+  
+  module.exports = {};
+  
+}});
+
 window.require.define({"lib/view_helper": function(exports, require, module) {
   
   Handlebars.registerHelper("debug", function(optionalValue) {
