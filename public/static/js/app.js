@@ -166,20 +166,55 @@ window.require.define({"lib/view_helper": function(exports, require, module) {
   
 }});
 
+window.require.define({"models/email": function(exports, require, module) {
+  var Email,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  Email = (function(_super) {
+
+    __extends(Email, _super);
+
+    function Email() {
+      return Email.__super__.constructor.apply(this, arguments);
+    }
+
+    Email.prototype.url = 'api/v1/create/';
+
+    Email.prototype.defaults = function() {
+      return {
+        email: ''
+      };
+    };
+
+    return Email;
+
+  })(Backbone.Model);
+
+  module.exports = Email;
+  
+}});
+
 window.require.define({"views/index": function(exports, require, module) {
-  var IndexView, View,
+  var Email, IndexView, View,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   View = require('./view');
 
+  Email = require('../models/email');
+
   IndexView = (function(_super) {
 
     __extends(IndexView, _super);
 
     function IndexView() {
-      this.initialize = __bind(this.initialize, this);
+      this.submitEmail = __bind(this.submitEmail, this);
+
+      this.inputChange = __bind(this.inputChange, this);
+
+      this.afterRender = __bind(this.afterRender, this);
       return IndexView.__super__.constructor.apply(this, arguments);
     }
 
@@ -187,7 +222,36 @@ window.require.define({"views/index": function(exports, require, module) {
 
     IndexView.prototype.template = require('./templates/index');
 
-    IndexView.prototype.initialize = function() {};
+    IndexView.prototype.events = {
+      'keypress #email-form': 'inputChange'
+    };
+
+    IndexView.prototype.dom = {};
+
+    IndexView.prototype.afterRender = function() {
+      this.dom.emailForm = $('#email-form');
+      return this.dom.overlay = $('#overlay');
+    };
+
+    IndexView.prototype.inputChange = function(event) {
+      if (event.keyCode === 13) {
+        return this.submitEmail();
+      }
+    };
+
+    IndexView.prototype.submitEmail = function() {
+      var email,
+        _this = this;
+      this.$('#success').remove();
+      email = new Email();
+      return email.save('email', this.dom.emailForm.val(), {
+        success: function() {
+          _this.dom.emailForm.val('');
+          _this.dom.overlay.height(315);
+          return _this.dom.emailForm.after(require('./templates/success')());
+        }
+      });
+    };
 
     return IndexView;
 
@@ -203,7 +267,16 @@ window.require.define({"views/templates/index": function(exports, require, modul
     var foundHelper, self=this;
 
 
-    return "<div id=\"signup\">\n    <div>\n        <h1>PakLite</h1>\n        <div id=\"pitch\">\n            <p>Prepare for ease of travel</p>\n            <p>With none of the hassle</p>\n        </div>\n        <div id=\"submission\">\n            <label for=\"email-form\">Sign up for the latest PakLite news!</label>\n            <input id=\"email-form\" placeholder=\"me@email.com\" />\n        </div>\n    </div>\n</div>\n";});
+    return "<div id=\"signup\">\n    <div id=\"overlay\">\n        <h1>PakLite</h1>\n        <div id=\"pitch\">\n            <p>Prepare for ease of travel</p>\n            <p>With none of the hassle</p>\n        </div>\n        <div id=\"submission\">\n            <label for=\"email-form\">Sign up for the latest PakLite news!</label>\n            <input id=\"email-form\" placeholder=\"me@email.com\" />\n        </div>\n    </div>\n</div>\n";});
+}});
+
+window.require.define({"views/templates/success": function(exports, require, module) {
+  module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+    helpers = helpers || Handlebars.helpers;
+    var foundHelper, self=this;
+
+
+    return "<div id=\"success\">\n    <span>Thanks! We'll keep you posted as PakLite becoems a reality.</span>\n</div>\n";});
 }});
 
 window.require.define({"views/view": function(exports, require, module) {

@@ -10762,6 +10762,8 @@ html {
   position: absolute;
   top: 20%;
   width: 100%;
+  min-width: 600px;
+  min-height: 400px;
 }
 #signup > div {
   width: 400px;
@@ -10792,6 +10794,9 @@ html {
 }
 #signup > div #submission label {
   color: #fff;
+}
+#signup > div #submission span {
+  color: #008000;
 }
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
